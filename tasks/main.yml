@@ -3,18 +3,17 @@
   package:
     name=libselinux-python
     state=present
-  become: yes
+  become: true
   when: ansible_os_family == "RedHat"
 
 - name: Disable SELinux at next reboot
   selinux: state=disabled
-  become: yes
+  become: true
   when: ansible_os_family == "RedHat"
   register: selinux_disabled
 
 - name: Set SELinux in permissive mode until the machine is rebooted
   shell: setenforce 0
-  become: yes
+  become: true
   when: ansible_os_family == "RedHat" and selinux_disabled.changed
-  ignore_errors: True
-  
+  ignore_errors: true
