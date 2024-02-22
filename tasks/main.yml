@@ -5,7 +5,7 @@
 - name: Modify SELinux config
   when: _selinux_config.stat.exists
   block:
-    - name: Install libselinux ansible module
+    - name: Install libselinux ansible module # verify this is needed for RedHat, it is not for Ubuntu
       package:
         name=libselinux-python
         state=present
@@ -15,11 +15,10 @@
     - name: Disable SELinux at next reboot
       selinux: state=disabled
       become: yes
-      when: ansible_os_family == "RedHat"
       register: selinux_disabled
 
     - name: Set SELinux in permissive mode until the machine is rebooted
       shell: setenforce 0
       become: yes
-      when: ansible_os_family == "RedHat" and selinux_disabled.changed
+      when: selinux_disabled.changed
       ignore_errors: True

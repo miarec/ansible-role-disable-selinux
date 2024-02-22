@@ -3,10 +3,23 @@
   hosts: all
   become: true
 
+
   tasks:
+    - set_fact:
+        prepare_selinux_package: selinux-policy
+      when: ansible_os_family == "RedHat"
+
+    - set_fact:
+        prepare_selinux_package: selinux-basics
+      when: ansible_os_family == "Debian"
+
     # Docker images do not include SELinux, adding
     - name: Install SELinux
       package:
-        name: selinux-policy
+        name: "{{ item }}"
         state: present
+      with_items: "{{ prepare_selinux_package }}"
+      # when: ansible_os_family == "RedHat"
+
+
 
