@@ -1,0 +1,12 @@
+---
+- name: Prepare
+  hosts: all
+  become: true
+
+  tasks:
+    # Docker images do not include SELinux, adding
+    - name: Install SELinux
+      package:
+        name: selinux-policy
+        state: present
+
