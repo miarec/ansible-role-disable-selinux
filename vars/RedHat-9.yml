@@ -1,0 +1,2 @@
+---
+disable_selinux_dependencies: python3-libselinux
