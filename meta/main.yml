@@ -13,9 +13,9 @@ galaxy_info:
         - jammy
     - name: EL
       versions:
-        - 7
-        - 8
-        - 9
+        - '7'
+        - '8'
+        - '9'
   galaxy_tags:
     - selinux
 
