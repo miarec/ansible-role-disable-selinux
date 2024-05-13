@@ -4,7 +4,7 @@
   become: true
   vars:
 
-  pre_tasks:
+  # pre_tasks:
     # - name: Install prerequisites
     #   block:
     #     - name: Update apt cache
@@ -13,7 +13,6 @@
     #         cache_valid_time: 600
     #       changed_when: false
     #       when: ansible_os_family == "Debian"
-
 
   roles:
     - role: ansible-role-disable-selinux
