@@ -4,13 +4,15 @@
   become: true
 
   tasks:
-    - set_fact:
+    - name: Select the SELinux package | RedHat
+      set_fact:
         prepare_selinux_package: selinux-policy
-      when: ansible_os_family == "RedHat"
+      when: ansible_facts['os_family'] == "RedHat"
 
-    - set_fact:
+    - name: Select the SELinux package | Debian
+      set_fact:
         prepare_selinux_package: selinux-basics
-      when: ansible_os_family == "Debian"
+      when: ansible_facts['os_family'] == "Debian"
 
     # Docker images do not include SELinux, adding
     - name: Install SELinux
